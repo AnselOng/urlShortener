@@ -6,8 +6,6 @@ const shortid = require('shortid');
 let _urls = fs.readFileSync('urls.json');
 let urls = JSON.parse(_urls);
 
-console.log(urls);
-
 function validateUrl(value) {
     var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
 	    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
@@ -23,14 +21,10 @@ app.set('view engine', 'hbs');
 app.use(express.urlencoded({ extended : false}));
 
 app.get('/', async (req, res) => {
-    //const shortUrls = await ShortUrl.find();
-    //res.render('index', { shortUrls: shortUrls });
     res.render('index', {urls: urls});
 });
 
 app.post('/shortUrl', async (req, res) => {
-    // await ShortUrl.create({ full: req.body.fullUrl });
-    // res.redirect('/');
     let newUrl = {
         "full" : "",
         "short": ""
@@ -45,8 +39,8 @@ app.post('/shortUrl', async (req, res) => {
             }
             if (found) {
                 //Exists, ignore and skip
-                //res.json(url);
                 console.log('exists: ', req.body.fullUrl);
+                res.redirect('/');
             } else {
                 //Does not exist, add into json file
                 newUrl.full = req.body.fullUrl
@@ -55,7 +49,6 @@ app.post('/shortUrl', async (req, res) => {
                 var newUrlObj = JSON.stringify(urls);
 
                 fs.writeFile('urls.json', newUrlObj, err => {
-                    // error checking
                     if(err) throw err;
                     console.log("New data added");
                 });
