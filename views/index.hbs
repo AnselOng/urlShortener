@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid no-padding" >
+        <div class="bg-primary">
+            <h1 class="text-center">Ansel's URL shortener</h1>
+        </div>
+
+        <form class="d-flex justify-content-center" action="/shortUrl" method="POST">
+            <div class="input-group w-auto">
+                <input
+                type="text"
+                name="fullUrl"
+                id="fullUrl"
+                class="form-control"
+                placeholder="Enter Url Here"
+                />
+                <button class="btn btn-primary" type="submit" id="button-addon1" data-mdb-ripple-color="dark">
+                    Shrink
+                </button>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full</th>
+                    <th scope="col">Short</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each urls}}
+                    <tr>
+                        <th scope="row">{{@index}}</th>
+                        <td><a href="{{this.full}}">{{this.full}}</a></td>
+                        <td><a href="{{this.short}}">{{this.short}}</a></td>
+                    </tr>
+                 {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer fixed-bottom ">
+        <div class="bg-secondary text-white text-center"> Ansel Ong is the right choice, contact: ansel.ong@gmail.com</div>
+    </footer>
+</body>
+<style>
+
+</style>
+</html>
